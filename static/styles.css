@@ -1,0 +1,28 @@
+#conv {
+
+    background-color: rgb(220, 217, 232);
+    border: 1px solid #ccc;
+    min-height: 100px;
+    padding: 5px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+
+}
+
+#countNum {
+    color: rgb(179, 17, 85);
+}
+
+.correct {
+    background-color: aqua;
+}
+
+.incorrect {
+    background-color: rgb(255, 0, 106);
+    color: #ffffff;
+}
+
+.neutral {
+    background-color: rgb(236, 218, 19);
+}
