@@ -12,7 +12,8 @@
 
 <body>
     <textarea id="type"
-        style="width: 400px; height:100px;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rem eum eligendi, enim eos nobis tenetur est
+        style="width: 500px; height:100px;">Lorem ipsum dolor sit, 
+        amet consectetur adipisicing elit. Rem eum eligendi, enim eos nobis tenetur est
         vero ab minima quae, deserunt iure qui quod voluptas unde omnis exercitationem perferendis consectetur.</textarea>
     <br><br>
     <button id="loadButton">Load Text</button>
@@ -57,14 +58,17 @@
                 if (keyPressed.length == 1 || keyPressed == 'Backspace') {
 
                     if (keyPressed !== 'Backspace') {
-                       allSpan[tIndex].className = keyPressed == text[tIndex] ? 'correct' : 'incorrect';
-
+                        allSpan[tIndex].className = keyPressed == text[tIndex] ? 'correct' : 'incorrect';
+                        allSpan[tIndex + 1].className = 'current';
                         tIndex++;
                     } else {
                         tIndex--;
-                        allSpan[tIndex].className = 'neutral'; 
+                        tIndex = tIndex >= 0 ? tIndex : 0;
+                        allSpan[tIndex].className = 'current';
+                        allSpan[tIndex + 1].className = 'neutral';
+                        allSpan[tIndex + 2].className = 'neutral';
                     }
-           
+
                 }
 
                 if (event.shiftKey) {

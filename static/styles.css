@@ -1,3 +1,7 @@
+body {
+    background-color: rgb(142, 156, 182);
+}
+
 #conv {
 
     background-color: rgb(220, 217, 232);
@@ -7,15 +11,21 @@
     white-space: pre-wrap;
     word-wrap: break-word;
     overflow-wrap: break-word;
-
+    width: 500px;
 }
 
 #countNum {
     color: rgb(179, 17, 85);
 }
 
+
+.current{
+    background-color: rgb(83, 102, 201);
+    color: #ffffff;
+}
+
 .correct {
-    background-color: aqua;
+    background-color: rgb(128, 244, 244);
 }
 
 .incorrect {
