@@ -8,10 +8,8 @@
     <link rel="stylesheet" href="static/styles.css">
 </head>
 
-
-
 <body>
-    <span id="count">you have pressed key <span id="countNum"> </span> times Key: <span id="pressK"></span> </span>
+    <span id="count">you have pressed key <span id="countNum"> </span> times / Key: <span id="pressK"></span> </span>
     <h3 class="head">Typing Board</h3>
     <div id="conv">HERE goes converted text:</div>
     <h3 class="head">Paste your custom code here:</h3>
@@ -22,12 +20,8 @@
 
     <p id="output">Press Load Text and start typing...</p>
     <button id="loadButton">Load Text to typing board</button>
-
-
-
-
+    
     <script>
-
         const inputArea = document.querySelector('#type');
         let text = inputArea.value;
         const divConvertText = document.querySelector('#conv');
@@ -56,13 +50,12 @@
         }
 
         document.addEventListener('keydown', function (event) {
-
             let keyPressed = event.key;
             let allSpan = document.querySelectorAll('div#conv span');
             spanCountElement.textContent = tIndex;
             pressKSpan.textContent = keyPressed;
-            if (keyPressed.length == 1) {
 
+            if (keyPressed.length == 1) {
                 if (keyPressed == ' ' && blockSpaceDef) {
                     event.preventDefault();
                 }
@@ -70,7 +63,6 @@
                 allSpan[tIndex].className = keyPressed == text[tIndex] ? 'correct' : 'incorrect';
                 allSpan[tIndex + 1].className = 'current';
                 tIndex++;
-
             }
 
             if (keyPressed === 'Backspace') {
@@ -89,9 +81,6 @@
         inputArea.addEventListener('blur', () => {
             blockSpaceDef = true;
         });
-
-
-
     </script>
 </body>
 
