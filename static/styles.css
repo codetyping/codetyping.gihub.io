@@ -1,12 +1,19 @@
 body {
     background-color: rgb(142, 156, 182);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    /* This ensures the body takes up the full viewport height */
+    margin: 0;
 }
 
 #type {
     width: 500px;
     height: 150px;
     border-radius: 4px;
-    box-shadow: 15px;
+    padding: 5px;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
     outline-color: rgb(171, 125, 211);
     outline-width: 0.5px;
@@ -38,6 +45,7 @@ body {
     padding: 5px;
     width: 500px;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
 }
 
 /* markers */
@@ -84,5 +92,3 @@ button:active {
 }
 
 /*  */
-
-

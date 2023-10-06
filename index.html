@@ -11,87 +11,88 @@
 
 
 <body>
+    <span id="count">you have pressed key <span id="countNum"> </span> times Key: <span id="pressK"></span> </span>
+    <h3 class="head">Typing Board</h3>
+    <div id="conv">HERE goes converted text:</div>
     <h3 class="head">Paste your custom code here:</h3>
     <textarea
         id="type">Lorem ipsum dolor sit, 
         amet consectetur adipisicing elit. Rem eum eligendi, enim eos nobis tenetur est
         vero ab minima quae, deserunt iure qui quod voluptas unde omnis exercitationem perferendis consectetur.</textarea>
-    <br><br>
-    <button id="loadButton">Load Text to typing board</button>
+
     <p id="output">Press Load Text and start typing...</p>
-    <p id="count">you have pressed key <span id="countNum"> </span> times </p>
-    <p>Key: <span id="pressK"></span></p>
+    <button id="loadButton">Load Text to typing board</button>
 
-    <h3 class="head">Typing Board</h3>
-    <div id="conv">HERE goes converted text:</p=div>
 
-        <script>
 
-            const inputArea = document.querySelector('#type');
-            let text = inputArea.value;
-            const divConvertText = document.querySelector('#conv');
-            const spanCountElement = document.querySelector('#countNum');
-            const pressKSpan = document.querySelector('#pressK');
-            const loadButton = document.querySelector('#loadButton');
-            let tIndex = 0;
-            let blockSpaceDef = true;
 
-            convertText();
+    <script>
 
-            loadButton.addEventListener('click', convertText);
+        const inputArea = document.querySelector('#type');
+        let text = inputArea.value;
+        const divConvertText = document.querySelector('#conv');
+        const spanCountElement = document.querySelector('#countNum');
+        const pressKSpan = document.querySelector('#pressK');
+        const loadButton = document.querySelector('#loadButton');
+        let tIndex = 0;
+        let blockSpaceDef = true;
 
-            function convertText() {
-                divConvertText.replaceChildren();
-                text = inputArea.value;
-                text = text.trim();
-                [...text].forEach((t, i) => {
-                    spanElement = document.createElement('span');
-                    spanElement.textContent = text[i];
-                    divConvertText.appendChild(spanElement);
-                });
-                tIndex = 0;
-                let allSpan = document.querySelectorAll('div#conv span');
-                allSpan[0].className = 'current';
+        convertText();
+
+        loadButton.addEventListener('click', convertText);
+
+        function convertText() {
+            divConvertText.replaceChildren();
+            text = inputArea.value;
+            text = text.trim();
+            [...text].forEach((t, i) => {
+                spanElement = document.createElement('span');
+                spanElement.textContent = text[i];
+                divConvertText.appendChild(spanElement);
+            });
+            tIndex = 0;
+            let allSpan = document.querySelectorAll('div#conv span');
+            allSpan[0].className = 'current';
+        }
+
+        document.addEventListener('keydown', function (event) {
+
+            let keyPressed = event.key;
+            let allSpan = document.querySelectorAll('div#conv span');
+            spanCountElement.textContent = tIndex;
+            pressKSpan.textContent = keyPressed;
+            if (keyPressed.length == 1) {
+
+                if (keyPressed == ' ' && blockSpaceDef) {
+                    event.preventDefault();
+                }
+
+                allSpan[tIndex].className = keyPressed == text[tIndex] ? 'correct' : 'incorrect';
+                allSpan[tIndex + 1].className = 'current';
+                tIndex++;
+
             }
 
-            document.addEventListener('keydown', function (event) {
+            if (keyPressed === 'Backspace') {
+                tIndex--;
+                tIndex = tIndex >= 0 ? tIndex : 0;
+                allSpan[tIndex].className = 'current';
+                allSpan[tIndex + 1].className = 'neutral';
+                allSpan[tIndex + 2].className = 'neutral';
+            }
+        });
 
-                let keyPressed = event.key;
-                let allSpan = document.querySelectorAll('div#conv span');
-                spanCountElement.textContent = tIndex;
+        inputArea.addEventListener('focus', () => {
+            blockSpaceDef = false;
+        });
 
-                if (keyPressed.length == 1) {
-
-                    if (keyPressed == ' ' && blockSpaceDef) {
-                        event.preventDefault();
-                    }
-
-                    allSpan[tIndex].className = keyPressed == text[tIndex] ? 'correct' : 'incorrect';
-                    allSpan[tIndex + 1].className = 'current';
-                    tIndex++;
-
-                }
-
-                if (keyPressed === 'Backspace') {
-                    tIndex--;
-                    tIndex = tIndex >= 0 ? tIndex : 0;
-                    allSpan[tIndex].className = 'current';
-                    allSpan[tIndex + 1].className = 'neutral';
-                    allSpan[tIndex + 2].className = 'neutral';
-                }
-            });
-
-            inputArea.addEventListener('focus', () => {
-                blockSpaceDef = false;
-            });
-
-            inputArea.addEventListener('blur', () => {
-                blockSpaceDef = true;
-            });
+        inputArea.addEventListener('blur', () => {
+            blockSpaceDef = true;
+        });
 
 
 
-        </script>
+    </script>
 </body>
 
 
