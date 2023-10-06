@@ -4,24 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Typing Events 0.1</title>
+    <title>Code-TYPING</title>
     <link rel="stylesheet" href="static/styles.css">
 </head>
 
 
 
 <body>
-    <textarea id="type"
-        style="width: 500px; height:100px;">Lorem ipsum dolor sit, 
+    <h3 class="head">Paste your custom code here:</h3>
+    <textarea
+        id="type">Lorem ipsum dolor sit, 
         amet consectetur adipisicing elit. Rem eum eligendi, enim eos nobis tenetur est
         vero ab minima quae, deserunt iure qui quod voluptas unde omnis exercitationem perferendis consectetur.</textarea>
     <br><br>
-    <button id="loadButton">Load Text</button>
-    <p id="output">Press any key...</p>
+    <button id="loadButton">Load Text to typing board</button>
+    <p id="output">Press Load Text and start typing...</p>
     <p id="count">you have pressed key <span id="countNum"> </span> times </p>
+    <p>Key: <span id="pressK"></span></p>
 
-
-
+    <h3 class="head">Typing Board</h3>
     <div id="conv">HERE goes converted text:</p=div>
 
         <script>
@@ -30,10 +31,11 @@
             let text = inputArea.value;
             const divConvertText = document.querySelector('#conv');
             const spanCountElement = document.querySelector('#countNum');
+            const pressKSpan = document.querySelector('#pressK');
             const loadButton = document.querySelector('#loadButton');
             let tIndex = 0;
+            let blockSpaceDef = true;
 
-            //convert text with span elements
             convertText();
 
             loadButton.addEventListener('click', convertText);
@@ -48,35 +50,43 @@
                     divConvertText.appendChild(spanElement);
                 });
                 tIndex = 0;
+                let allSpan = document.querySelectorAll('div#conv span');
+                allSpan[0].className = 'current';
             }
 
             document.addEventListener('keydown', function (event) {
+
                 let keyPressed = event.key;
                 let allSpan = document.querySelectorAll('div#conv span');
                 spanCountElement.textContent = tIndex;
 
-                if (keyPressed.length == 1 || keyPressed == 'Backspace') {
+                if (keyPressed.length == 1) {
 
-                    if (keyPressed !== 'Backspace') {
-                        allSpan[tIndex].className = keyPressed == text[tIndex] ? 'correct' : 'incorrect';
-                        allSpan[tIndex + 1].className = 'current';
-                        tIndex++;
-                    } else {
-                        tIndex--;
-                        tIndex = tIndex >= 0 ? tIndex : 0;
-                        allSpan[tIndex].className = 'current';
-                        allSpan[tIndex + 1].className = 'neutral';
-                        allSpan[tIndex + 2].className = 'neutral';
+                    if (keyPressed == ' ' && blockSpaceDef) {
+                        event.preventDefault();
                     }
+
+                    allSpan[tIndex].className = keyPressed == text[tIndex] ? 'correct' : 'incorrect';
+                    allSpan[tIndex + 1].className = 'current';
+                    tIndex++;
 
                 }
 
-                if (event.shiftKey) {
-                    if (event.key === 'Enter' || event.key === 'NumpadEnter') {
-                        //console.log('Shift + Enter pressed');
-                        tIndex++;
-                    }
+                if (keyPressed === 'Backspace') {
+                    tIndex--;
+                    tIndex = tIndex >= 0 ? tIndex : 0;
+                    allSpan[tIndex].className = 'current';
+                    allSpan[tIndex + 1].className = 'neutral';
+                    allSpan[tIndex + 2].className = 'neutral';
                 }
+            });
+
+            inputArea.addEventListener('focus', () => {
+                blockSpaceDef = false;
+            });
+
+            inputArea.addEventListener('blur', () => {
+                blockSpaceDef = true;
             });
 
 

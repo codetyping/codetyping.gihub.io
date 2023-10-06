@@ -2,6 +2,18 @@ body {
     background-color: rgb(142, 156, 182);
 }
 
+#type {
+    width: 500px;
+    height: 150px;
+    border-radius: 4px;
+    box-shadow: 15px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+    outline-color: rgb(171, 125, 211);
+    outline-width: 0.5px;
+}
+
+
+
 #conv {
 
     background-color: rgb(220, 217, 232);
@@ -12,14 +24,24 @@ body {
     word-wrap: break-word;
     overflow-wrap: break-word;
     width: 500px;
+    border-radius: 4px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
 }
 
 #countNum {
     color: rgb(179, 17, 85);
 }
 
+.head {
+    color: darkblue;
+    background-color: aqua;
+    padding: 5px;
+    width: 500px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+}
 
-.current{
+/* markers */
+.current {
     background-color: rgb(83, 102, 201);
     color: #ffffff;
 }
@@ -36,3 +58,31 @@ body {
 .neutral {
     background-color: rgb(236, 218, 19);
 }
+
+button {
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #000;
+    background-color: aqua;
+    cursor: pointer;
+    border: 0px;
+    padding: 0.25em 0.5em;
+    box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+button:active {
+    box-shadow: 0px 0px 0px 0px;
+    top: 5px;
+    left: 5px;
+}
+
+/*  */
+
+
