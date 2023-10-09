@@ -52,8 +52,27 @@ body {
 
 /* markers */
 .current {
-    background-color: rgb(83, 102, 201);
-    color: #ffffff;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-decoration-style: solid;
+    animation: blink 900ms infinite;
+}
+
+@keyframes blink {
+    0% {
+        text-decoration-color: transparent;
+        /* Start with transparent underline */
+    }
+
+    50% {
+        text-decoration-color: rgb(19, 255, 2);
+        /* Change to the desired underline color */
+    }
+
+    100% {
+        text-decoration-color: transparent;
+        /* End with transparent underline */
+    }
 }
 
 .correct {
@@ -62,7 +81,7 @@ body {
 
 .incorrect {
     background-color: rgb(255, 0, 106);
-    color: #ffffff;
+    color: #ffffff !important;
 }
 
 .neutral {
@@ -91,6 +110,14 @@ button:active {
     box-shadow: 0px 0px 0px 0px;
     top: 5px;
     left: 5px;
+}
+
+#pressK {
+    color: rgb(255, 238, 1);
+}
+
+.enter {
+    color: rgb(139, 141, 137);
 }
 
 /*  */

@@ -9,18 +9,27 @@
 </head>
 
 <body>
+
     <span id="count">you have pressed key <span id="countNum"> </span> times / Key: <span id="pressK"></span> </span>
     <h3 class="head">Typing Board</h3>
-    <div id="conv">HERE goes converted text:</div>
+    <div id="conv">HERE goes converted text:
+
+        <span>a</span><span>b</span><br><span>c</span>
+
+    </div>
     <h3 class="head">Paste your custom code here:</h3>
-    <textarea
-        id="type">Lorem ipsum dolor sit, 
-        amet consectetur adipisicing elit. Rem eum eligendi, enim eos nobis tenetur est
-        vero ab minima quae, deserunt iure qui quod voluptas unde omnis exercitationem perferendis consectetur.</textarea>
+    <textarea id="type">
+        class Car {  // Create a class
+            constructor(brand) {  // Class constructor
+              this.carname = brand;  // Class body/properties
+            }
+          }
+          mycar = new Car("Ford");
+    </textarea>
 
     <p id="output">Press Load Text and start typing...</p>
     <button id="loadButton">Load Text to typing board</button>
-    
+
     <script>
         const inputArea = document.querySelector('#type');
         let text = inputArea.value;
@@ -29,7 +38,12 @@
         const pressKSpan = document.querySelector('#pressK');
         const loadButton = document.querySelector('#loadButton');
         let tIndex = 0;
-        let blockSpaceDef = true;
+        let blockDefaultEv = true;
+
+        const setClass={
+            true:'correct',
+            false:'incorrect'
+        }
 
         convertText();
 
@@ -39,14 +53,22 @@
             divConvertText.replaceChildren();
             text = inputArea.value;
             text = text.trim();
+            text = text.replace(/\n/g, '↓');
+
             [...text].forEach((t, i) => {
                 spanElement = document.createElement('span');
                 spanElement.textContent = text[i];
                 divConvertText.appendChild(spanElement);
+                if (text[i] == '↓') {
+                    spanElement.classList.add('enter')
+                    let br = document.createElement('br');
+                    divConvertText.appendChild(br);
+                }
             });
+
             tIndex = 0;
             let allSpan = document.querySelectorAll('div#conv span');
-            allSpan[0].className = 'current';
+            allSpan[0].classList.add('current');
         }
 
         document.addEventListener('keydown', function (event) {
@@ -55,31 +77,45 @@
             spanCountElement.textContent = tIndex;
             pressKSpan.textContent = keyPressed;
 
+            if (keyPressed == 'Enter' && blockDefaultEv) {
+                event.preventDefault();
+                keyPressed = '↓';
+            }
+
             if (keyPressed.length == 1) {
-                if (keyPressed == ' ' && blockSpaceDef) {
+
+                if (keyPressed == ' ' && blockDefaultEv) {
                     event.preventDefault();
                 }
+                
+                allSpan[tIndex].classList.remove('current');
+                console.log('trf',keyPressed == text[tIndex])
+                let isCorrect = keyPressed == text[tIndex];
+                allSpan[tIndex].classList.add(setClass[isCorrect]);
+                allSpan[tIndex].classList.remove(setClass[!isCorrect]);
+                allSpan[tIndex].classList.remove('neutral');
+                allSpan[tIndex + 1].classList.add('current');
 
-                allSpan[tIndex].className = keyPressed == text[tIndex] ? 'correct' : 'incorrect';
-                allSpan[tIndex + 1].className = 'current';
                 tIndex++;
             }
 
             if (keyPressed === 'Backspace') {
                 tIndex--;
                 tIndex = tIndex >= 0 ? tIndex : 0;
-                allSpan[tIndex].className = 'current';
-                allSpan[tIndex + 1].className = 'neutral';
-                allSpan[tIndex + 2].className = 'neutral';
+                allSpan[tIndex].classList.add('current');
+                allSpan[tIndex].classList.add('neutral');
+                allSpan[tIndex].classList.remove('correct');
+                allSpan[tIndex].classList.remove('incorrect');
+                allSpan[tIndex + 1].classList.remove("current");
             }
         });
 
         inputArea.addEventListener('focus', () => {
-            blockSpaceDef = false;
+            blockDefaultEv = false;
         });
 
         inputArea.addEventListener('blur', () => {
-            blockSpaceDef = true;
+            blockDefaultEv = true;
         });
     </script>
 </body>
